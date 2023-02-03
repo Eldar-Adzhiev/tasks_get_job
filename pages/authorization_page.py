@@ -15,7 +15,7 @@ class Authorization(BasePage):
     def _input_email(self):
         with allure.step("Input email"):
             email_field = self.get_element(Authorization.EMAIL_OR_PHONE)
-            email_field.send_keys("eldartestauto@gmail.com")
+            email_field.send_keys("")
 
     def _click_next(self):
         with allure.step("Click next button"):
@@ -25,7 +25,7 @@ class Authorization(BasePage):
     def _input_password(self):
         with allure.step("Input password"):
             password = self.get_element(Authorization.PASSWORD)
-            password.send_keys("dF9EfTLKH!JRhZf")
+            password.send_keys("")
 
     def login(self):
         with allure.step("login in gmail"):

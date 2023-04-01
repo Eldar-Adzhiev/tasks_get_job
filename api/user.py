@@ -44,11 +44,3 @@ class Users(BaseRequest):
                              "email": "eve.holt@reqres.in",
                              "password": "cityslicka"
                          })
-
-
-
-
-a = Users()
-users = a.create_user()
-print(users.json())
-print(json.dumps(users.json(), indent=4))

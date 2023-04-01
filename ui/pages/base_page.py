@@ -3,7 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage:
-    def __init__(self, browser, url):
+    def __init__(self, browser, url="https://reqres.in/"):
         self.browser = browser
         self.url = url
 

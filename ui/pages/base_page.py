@@ -16,6 +16,8 @@ class BasePage:
         )
         return element
 
+    def scroll_page_to_element(self, element):
+        self.browser.execute_script("arguments[0].scrollIntoView();", element)
 
 
 

@@ -1,4 +1,4 @@
-create_user_schems = {
+create_user_schemas = {
 
     "type": "object",
     "properties": {

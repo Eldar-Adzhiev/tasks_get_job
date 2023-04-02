@@ -68,3 +68,11 @@ def test_update_user(create_user, name, job):
     assert response.json()["job"] == job, "Incorrect name. " \
                                           f"Expected = {job} " \
                                           f"Actual = {response.json()['job']}"
+
+
+def test_delete_user(create_user):
+    users = Users()
+    response = users.delete_user(create_user["id"])
+    assert response.status_code == 204, "Incorrect status code " \
+                                        f"Expected = {200} " \
+                                        f"Actual = {response.status_code}"

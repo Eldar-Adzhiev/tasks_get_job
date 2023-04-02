@@ -8,39 +8,52 @@ class Users(BaseRequest):
         return self.get(end_point="api/users",
                         params={
                              "page": f"{page}"
-                         })
+                         },
+                        check_status=False,
+                        jsonify=False)
 
-    def get_user(self, id: int):
-        return self.get(end_point=f"api/users/{id}")
+    def get_user(self, user_id: int):
+        return self.get(end_point=f"api/users/{user_id}",
+                        check_status=False,
+                        jsonify=False)
 
-    def create_user(self):
+    def create_user(self, name="morpheus", job="leader"):
         return self.post(end_point="api/users",
                          data={
-                             "name": "morpheus",
-                             "job": "leader"
+                             "name": name,
+                             "job": job
                          },
-                         check_status=False, jsonify=False)
+                         check_status=False,
+                         jsonify=False)
 
-    def update_user(self):
+    def update_user(self, name="morpheus", job="zion resident"):
         return self.put(end_point="api/users/2",
                         data={
-                             "name": "morpheus",
-                             "job": "zion resident"
-                         })
+                             "name": name,
+                             "job": job
+                         },
+                        check_status=False,
+                        jsonify=False)
 
-    def delete_user(self):
-        return self.delete(end_point="api/users/2")
+    def delete_user(self, user_id=2):
+        return self.delete(end_point=f"api/users/{user_id}",
+                           check_status=False,
+                           jsonify=False)
 
-    def register(self):
+    def register(self, email="eve.holt@reqres.in", password="pistol"):
         return self.post(end_point="api/register",
                          data={
-                             "email": "eve.holt@reqres.in",
-                             "password": "pistol"
-                         })
+                             "email": email,
+                             "password": password
+                         },
+                         check_status=False,
+                         jsonify=False)
 
-    def login(self):
+    def login(self, email="eve.holt@reqres.in", password="cityslicka"):
         return self.post(end_point="api/login",
                          data={
-                             "email": "eve.holt@reqres.in",
-                             "password": "cityslicka"
-                         })
+                             "email": email,
+                             "password": password
+                         },
+                         check_status=False,
+                         jsonify=False)

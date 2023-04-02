@@ -10,14 +10,17 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
-    def get_element(self, locator):
+    def wait_element(self, locator):
         element = WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(locator)
         )
         return element
 
+    def get_element(self, locator):
+        return self.browser.find_element(locator)
+
     def scroll_page_to_element(self, element):
-        self.browser.execute_script("arguments[0].scrollIntoView();", element)
+        self.browser.execute_script("scrollIntoView();", element)
 
 
 

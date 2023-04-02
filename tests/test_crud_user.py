@@ -52,7 +52,7 @@ def test_get_user_by_id(create_user):
 @pytest.mark.parametrize("name, job", [
     ("", ""),
     ("AnotherName", "AnotherJob"),
-    (1234, 1243),
+    ('1234', '1243'),
     ("Name-with", "job-with"),
     ("N_ame", "J_ob")
 ])

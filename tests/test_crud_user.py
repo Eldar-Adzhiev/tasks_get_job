@@ -1,5 +1,7 @@
 import time
 
+import pytest
+
 from api.user import Users
 from jsonschema import validate
 from api.schemas.crud_user import *
@@ -7,10 +9,16 @@ from ui.pages.main_page import MainPage
 import json
 
 
-def test_create_user():
-    user = Users()
-    response = user.create_user()
-    validate(instance=response.json(), schema=create_user_schems)
+@pytest.mark.parametrize("user", [
+    (Users().create_user()),
+    (Users().create_user(name="anotherName", job="AnotherJob")),
+    (Users().create_user(name="", job=""))
+
+])
+def test_create_user(user):
+    response = user
+    print(response.json())
+    validate(instance=response.json(), schema=create_user_schemas)
     assert response.status_code == 201, "Incorrect status code"
 
 

@@ -1,39 +1,35 @@
-from pages.base_page import BasePage
 from selenium.webdriver.common.by import By
 import allure
 
 
-class Authorization(BasePage):
-    EMAIL_OR_PHONE = (By.CSS_SELECTOR, "#identifierId")
-    NEXT_BUTTON = (By.CSS_SELECTOR,
-                   '[class="VfPpkd-LgbsSe VfPpkd-LgbsSe-OWXEXe-k8QpJ VfPpkd-LgbsSe-OWXEXe-dgl2Hf nCP5yc AjY5Oe DuMIQc LQeN7 qIypjc TrZEUc lw1w4b"]')
-    PASSWORD = (By.CSS_SELECTOR, '[name="Passwd"]')
+class AuthorizationPage:
+    CUSTOMER_LOGIN = (By.XPATH, '//button[@ng-click="customer()"]')
+    DROP_DOWN_MENU = (By.TAG_NAME, "select")
+    USER_HARRY_POTTER = (By.CSS_SELECTOR, "option:nth-child(3)")
+    LOGIN_BUTTON = (By.XPATH, '//form[@name="myForm"]/button')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, app):
+        self.app = app
 
-    def _input_email(self):
-        with allure.step("Input email"):
-            email_field = self.get_element(Authorization.EMAIL_OR_PHONE)
-            email_field.send_keys("")
+    def _click_customer_login(self):
+        with allure.step("Click button customer login"):
+            self.app.get_element(AuthorizationPage.CUSTOMER_LOGIN).click()
 
-    def _click_next(self):
+    def _click_on_drop_down_menu(self):
         with allure.step("Click next button"):
-            next_button = self.get_element(Authorization.NEXT_BUTTON)
-            next_button.click()
+            self.app.get_element(AuthorizationPage.DROP_DOWN_MENU).click()
 
-    def _input_password(self):
-        with allure.step("Input password"):
-            password = self.get_element(Authorization.PASSWORD)
-            password.send_keys("")
+    def _click_on_harry_potter_user(self):
+        with allure.step("Click on Harry Potter user"):
+            self.app.get_element(AuthorizationPage.USER_HARRY_POTTER).click()
+
+    def _click_login_button(self):
+        with allure.step("Click login button"):
+            self.app.get_element(AuthorizationPage.LOGIN_BUTTON).click()
 
     def login(self):
-        with allure.step("login in gmail"):
-            login = Authorization(self.browser, self.url)
-            login.open()
-            login._input_email()
-            login._click_next()
-            login._input_password()
-            login._click_next()
-
-
+        with allure.step("login"):
+            self._click_customer_login()
+            self._click_on_drop_down_menu()
+            self._click_on_harry_potter_user()
+            self._click_login_button()

@@ -1,6 +1,4 @@
 import datetime
-
-from selenium import webdriver
 from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -46,7 +44,6 @@ class BasePage:
         except TimeoutException:
             return False
         return True
-
 
     @staticmethod
     def get_date():

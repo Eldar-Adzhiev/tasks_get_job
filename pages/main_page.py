@@ -1,5 +1,8 @@
 import allure
 from selenium.webdriver.common.by import By
+import re
+
+from utils.csv_file import FileUtil
 
 
 class MainPage:
@@ -69,3 +72,32 @@ class MainPage:
     def is_message_present(self, text):
         with allure.step("Check message about transaction"):
             return self.app.is_text_present(MainPage.MESSAGE, text)
+
+    def get_transactions(self):
+        with allure.step("Get transactions"):
+            return self.app.get_elements((By.XPATH, '//tbody/tr[contains(@id, "anchor")]'))
+
+    def get_date(self, row):
+        with allure.step("Get data"):
+            data: str = self.app.get_element((By.XPATH, f'//tbody/tr[@id="anchor{row}"]/td[@class="ng-binding"][1]')).text
+            data_list = re.split(r"[, ]", data)
+            return data_list[1] + " " + data_list[0] + " " + data_list[3] + " " + data_list[4]
+
+    def get_amount(self, row):
+        with allure.step("Get amount"):
+            return self.app.get_element((By.XPATH, f'//tbody/tr[@id="anchor{row}"]/td[@class="ng-binding"][2]')).text
+
+    def get_transaction_type(self, row):
+        with allure.step("Get transaction type"):
+            return self.app.get_element((By.XPATH, f'//tbody/tr[@id="anchor{row}"]/td[@class="ng-binding"][3]')).text
+
+    def write_transactions_to_csv(self, transactions_count):
+        date = []
+        for i in range(transactions_count):
+            date_list = []
+            date_list.append(self.get_date(i))
+            date_list.append(self.get_amount(i))
+            date_list.append(self.get_transaction_type(i))
+            date.append(date_list)
+        a = FileUtil()
+        a.write_csv("test", date)

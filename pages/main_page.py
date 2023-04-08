@@ -13,6 +13,8 @@ class MainPage:
     BUTTON_SUBMIT_SUM = (By.XPATH, '//button[contains(@class, "btn-default")]')
     INPUT_SUM_FIELD_LABEL = (By.XPATH, '//div[@class="form-group"]/label')
     BALANCE = (By.XPATH, '//strong[@class="ng-binding"][2]')
+    MESSAGE = (By.XPATH, '//span[@ng-show="message"]')
+    BUTTON_BACK = (By.XPATH, '//button[@ng-click="back()"]')
 
     def __init__(self, app):
         self.app = app
@@ -55,3 +57,15 @@ class MainPage:
     def get_balance(self):
         with allure.step("Get balance"):
             return self.app.get_element(MainPage.BALANCE).text
+
+    def is_transaction_present(self, index):
+        with allure.step("Get transaction"):
+            return self.app.is_element_present(By.XPATH, f'//tbody/tr[{index}]')
+
+    def click_button_back(self):
+        with allure.step("Click button back"):
+            self.app.get_element(MainPage.BUTTON_BACK).click()
+
+    def is_message_present(self, text):
+        with allure.step("Check message about transaction"):
+            return self.app.is_text_present(MainPage.MESSAGE, text)

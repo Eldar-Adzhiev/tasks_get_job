@@ -9,7 +9,7 @@ from utils.work_dir import get_absolute_path
 
 
 @allure.suite("Тестовое задание")
-def test_login_and_send_new_message(browser):
+def test_transactions(browser):
     link = ConfigParser("config.json").get_config()["url"]
     page = BasePage(browser, link)
     page.open()

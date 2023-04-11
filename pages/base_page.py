@@ -48,11 +48,3 @@ class BasePage:
     @staticmethod
     def get_date():
         return int(str(datetime.date.today()).split("-")[-1])
-
-    def fibonacci(self, n):
-        if n == 1:
-            return 0
-        if n == 2:
-            return 1
-        return self.fibonacci(n - 1) + self.fibonacci(n - 2)
-

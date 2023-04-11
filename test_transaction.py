@@ -5,6 +5,8 @@ import allure
 from pages.base_page import BasePage
 from pages.main_page import MainPage
 from utils.config_parser import ConfigParser
+from utils.csv_file import FileUtil
+from utils.help_functions import fibonacci
 from utils.work_dir import get_absolute_path
 
 
@@ -18,7 +20,7 @@ def test_transactions(browser):
     assert page.main_page.get_user_name().text == "Harry Potter", "Incorrect username."
 
     date = page.get_date()
-    balance = page.fibonacci(date+1)
+    balance = fibonacci(date+1)
     page.main_page.click_button_deposit()
     assert page.main_page.is_field_text_present("Amount to be Deposited :"), "Field has incorrect label"
 
@@ -45,6 +47,15 @@ def test_transactions(browser):
     assert page.main_page.is_transaction_present(2), "Transaction not present"
 
     transactions_count = len(page.main_page.get_transactions())
-    page.main_page.write_transactions_to_csv(transactions_count)
+
+    data = []
+    for i in range(transactions_count):
+        data_list = []
+        data_list.append(page.main_page.get_date(i))
+        data_list.append(page.main_page.get_amount(i))
+        data_list.append(page.main_page.get_transaction_type(i))
+        data.append(data_list)
+    a = FileUtil()
+    a.write_csv("test", data)
 
     allure.attach.file(get_absolute_path("generated_files/test.csv"))
